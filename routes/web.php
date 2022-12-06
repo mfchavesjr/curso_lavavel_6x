@@ -19,5 +19,5 @@ Route::get('/login', function () {
     return 'Login';
 });
 
-Route::resource('products', 'ProductController');
+Route::resource('products', 'ProductController')->middleware('auth');
 

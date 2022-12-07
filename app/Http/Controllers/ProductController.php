@@ -13,7 +13,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return 'Listagem de Produtos';
+
+        $teste = '<h1>Olá</h1>';
+
+        return view('admin.pages.products.index', compact('teste'));
     }
 
     /**

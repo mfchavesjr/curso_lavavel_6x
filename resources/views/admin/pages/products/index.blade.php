@@ -5,34 +5,30 @@
 @section('content')
 
     <h1>Exibindo os Produtos</h1>
-
     <a href="{{ route('products.create')}}">Cadastrar</a>
-
     <hr>
 
-    @component('admin.components.card')
-        @slot('title')
-            <h1>Título Card</h1>
-        @endslot
-        <p>Um card de exemplo</p>
-    @endcomponent
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($products as $product)
+                <tr>
+                    <td>{{ $product->name }}</td>
+                    <td>{{ $product->price }}</td>
+                    <td>
+                        <a href="">Detalhes</a>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 
-    <hr>
-    @include('admin.includes.alerts', ['content' => 'Alerta de preços de produtos'])
-    <hr>
+    {!! $products->links() !!}
 
-
-
-    {{ $teste }}
 @endsection
-
-@push('styles')
-    <style>
-        .last {background: #ccc}
-    </style>
-@endpush
-@push('scripts')
-    <script>
-        document.body.style.background = '#efefef'
-    </script>
-@endpush

@@ -18,7 +18,7 @@ class ProductController extends Controller
 
         //$products = Product::all();
         //$products = Product::get();
-        $products = Product::paginate();
+        $products = Product::latest()->paginate();
 
         return view('admin.pages.products.index', [
             'products' => $products,
@@ -43,20 +43,11 @@ class ProductController extends Controller
      */
     public function store(StoreUpdadeProductRequest $request)
     {
+        $data = $request->only('name', 'description', 'price');
 
-        /*
-        $request->validate([
-            'name' => 'required|min:3|max:255',
-            'description' => 'nullable|min:3|max:10000',
-            'photo' => 'required|image',
-        ]);
-        */
+        Product::create($data);
 
-        if(($request->file('photo')->isValid())){
-            $nameFile = $request->name . '.' . $request->photo->extension();
-            dd($request->file('photo')->storeAs('products', $nameFile));
-            //dd($request->file('photo')->store('products'));
-        }
+        return redirect()->route('products.index');
     }
 
     /**
@@ -67,7 +58,14 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        //$product = Product::where('id', $id)->first();
+
+        if(!$product = Product::find($id))
+            return redirect()->back();
+
+        return view('admin.pages.products.show', [
+            'product' => $product
+        ]);
     }
 
     /**

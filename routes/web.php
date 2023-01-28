@@ -19,5 +19,6 @@ Route::get('/login', function () {
     return 'Login';
 });
 
+Route::any('products/search', 'ProductController@search')->name('products.search');
 Route::resource('products', 'ProductController');//->middleware('auth');
 
